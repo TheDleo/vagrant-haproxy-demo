@@ -2,9 +2,15 @@
 
 if [ ! -f /etc/network/if-up.d/custom-network-config ]; then
 
-  # Install apache
-  /usr/bin/apt-get -y install apache2
-  cat > /var/www/index.html <<EOD
+  # Install apache and php
+  /usr/bin/apt-get update
+  /usr/bin/apt-get -y install apache2 php5 libapache2-mod-php5
+  
+  cat > /var/www/index.php <<EOD
+<?php
+        session_start();
+        \$_SESSION['favoriteorg'] = 'FH';
+?>
 <html><head><title>${HOSTNAME}</title></head><body><h1>${HOSTNAME}</h1>
 <p>This is the default web page for ${HOSTNAME}.</p>
 </body></html>

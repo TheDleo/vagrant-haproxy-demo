@@ -33,6 +33,7 @@ backend webservers
     # balance source
     # JSP SessionID Sticky
     # appsession JSESSIONID len 52 timeout 3h
+    appsession PHPSESSID len 64 timeout 3h request-learn prefix
     option httpchk
     option forwardfor
     option http-server-close
