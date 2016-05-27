@@ -3,7 +3,7 @@
 if [ ! -f /etc/haproxy/haproxy.cfg ]; then
 
   # Install haproxy
-  /usr/bin/apt-get -y install haproxy
+  /usr/bin/apt-get -y install haproxy socat
 
   # Configure haproxy
   cat > /etc/default/haproxy <<EOD
@@ -16,6 +16,7 @@ EOD
 global
     daemon
     maxconn 256
+    stats socket /var/run/haproxy.stat level admin
 
 defaults
     mode http
