@@ -28,14 +28,14 @@ Demo of HAProxy using Vagrant
 6.  Open up [http://localhost:8081/index.php](http://localhost:8081/index.php) in your host's browser.  This is the load balanced interface to the two web servers.  **Note** this is port forwarded via your actual host, and will be accessible via your externally accessible IP address - you can access test the load balancer from another workstation if you wish.
 7.  Open up [http://172.28.33.11/index.php](http://172.28.33.11/index.php) in a browser to see if web1's Apache is working.
 8.  Open up [http://172.28.33.12/index.php](http://172.28.33.12/index.php) in a browser to see if web2's Apache is working.
-5.  To see the Apache access logs on web1 and web2, run ``` sudo tail -f /var/log/apache2/access.log ```  If you'd like to filter out the "pings" from the load balancer, run ``` sudo tail -f /var/log/apache2/access.log | grep -v OPTIONS ```
-6.  To stop Apache on one of the webservers to simulate an outage, run ``` sudo service apache2 stop ```  To start it again, run ``` sudo service apache2 start ```
-7.  To disable a server for maintenance, log into the haproxy server and run  stats socket /var/run/haproxy.stat level admin  at the command prompt.
-7.  To make changes to haproxy, edit the config file with ``` sudo vi /etc/haproxy/haproxy.cfg ```  When you want to apply the changes, run ``` sudo service haproxy reload ```  If you break things and want to reset back, just run ``` sudo cp /etc/haproxy/haproxy.cfg.orig /etc/haproxy/haproxy.cfg && sudo service haproxy reload ```
-8.  When you're all done, type ``` exit ``` at the shell to get back to your local terminal.
-9.  To shut down the VM's, run ``` vagrant halt web1 web2 haproxy ``` or just ``` vagrant halt  ``` to shutdown all 3 at once
-10.  To remove the VM's from your hard drive, run ``` vagrant destroy web1 web2 haproxy ```
-11.  If you wish to remove the cached image file from which these machines were created, run ``` vagrant box remove precise64 ```
+9.  To see the Apache access logs on web1 and web2, run ``` sudo tail -f /var/log/apache2/access.log ```  If you'd like to filter out the "pings" from the load balancer, run ``` sudo tail -f /var/log/apache2/access.log | grep -v OPTIONS ```
+10.  To stop Apache on one of the webservers to simulate an outage, run ``` sudo service apache2 stop ```  To start it again, run ``` sudo service apache2 start ```
+11.  To disable a server for maintenance, run ``` echo "disable server webservers/web1" | sudo socat unix-connect:/var/run/haproxy.stat stdio ``` at the command prompton the haproxy server.
+12.  To make changes to haproxy, edit the config file with ``` sudo vi /etc/haproxy/haproxy.cfg ```  When you want to apply the changes, run ``` sudo service haproxy reload ```  If you break things and want to reset back, just run ``` sudo cp /etc/haproxy/haproxy.cfg.orig /etc/haproxy/haproxy.cfg && sudo service haproxy reload ```
+13.  When you're all done, type ``` exit ``` at the shell to get back to your local terminal.
+14.  To shut down the VM's, run ``` vagrant halt web1 web2 haproxy ``` or just ``` vagrant halt  ``` to shutdown all 3 at once
+15.  To remove the VM's from your hard drive, run ``` vagrant destroy web1 web2 haproxy ```
+16.  If you wish to remove the cached image file from which these machines were created, run ``` vagrant box remove precise64 ```
 
 # Reference material
 * [Vagrant](http://vagrantup.com)
