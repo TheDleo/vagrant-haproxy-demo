@@ -6,7 +6,7 @@ if [ ! -f /etc/network/if-up.d/custom-network-config ]; then
   /usr/bin/apt-get update
   /usr/bin/apt-get -y install apache2 php5 libapache2-mod-php5
   
-  cat > /var/www/index.php <<EOD
+  cat > /var/www/html/index.php <<EOD
 <?php
         session_start();
         \$_SESSION['favoriteorg'] = 'FH';
